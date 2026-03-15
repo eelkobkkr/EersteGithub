@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <rect width="1024" height="1024" rx="224" fill="#0A0A0A"/>
+  <rect x="40" y="40" width="944" height="944" rx="200" fill="#0A0A0A" stroke="#1A1A1A" stroke-width="2"/>
+
+  <!-- Heart icon -->
+  <path d="M512 720
+    C512 720 300 580 300 440
+    C300 370 355 320 420 320
+    C465 320 495 355 512 380
+    C529 355 559 320 604 320
+    C669 320 724 370 724 440
+    C724 580 512 720 512 720Z"
+    fill="#2D6A4F"/>
+
+  <!-- Timer ring (subtle) -->
+  <circle cx="512" cy="512" r="380" fill="none" stroke="#1A1A1A" stroke-width="16"/>
+  <path d="M512 132 A380 380 0 0 1 892 512" fill="none" stroke="#2D6A4F" stroke-width="16" stroke-linecap="round"/>
+</svg>

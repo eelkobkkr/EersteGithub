@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>FitnessTimer App Icon Generator</title>
+<style>
+  body { background: #1a1a1a; color: #e0e0e0; font-family: -apple-system, sans-serif; padding: 2rem; text-align: center; }
+  canvas { border: 1px solid #333; margin: 1rem; border-radius: 16px; }
+  button { background: #2D6A4F; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; cursor: pointer; margin: 8px; }
+  button:hover { background: #40916C; }
+  .sizes { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 1rem; }
+  .size-item { text-align: center; }
+  .size-item canvas { display: block; }
+  p { color: #6b6b6b; }
+</style>
+</head>
+<body>
+<h1>FitnessTimer App Icon</h1>
+<p>Klik op een knop om het icoon als PNG te downloaden.</p>
+
+<div class="sizes" id="sizes"></div>
+
+<script>
+const SIZES = [1024, 180, 167, 152, 120, 87, 80, 76, 60, 58, 40, 29, 20];
+
+function drawIcon(ctx, size) {
+  const s = size / 1024;
+  const r = 224 * s;
+
+  // Background
+  ctx.beginPath();
+  roundRect(ctx, 0, 0, size, size, r);
+  ctx.fillStyle = '#0A0A0A';
+  ctx.fill();
+
+  // Outer ring (subtle)
+  ctx.beginPath();
+  ctx.arc(512 * s, 512 * s, 380 * s, 0, Math.PI * 2);
+  ctx.strokeStyle = '#1A1A1A';
+  ctx.lineWidth = 16 * s;
+  ctx.stroke();
+
+  // Quarter ring accent
+  ctx.beginPath();
+  ctx.arc(512 * s, 512 * s, 380 * s, -Math.PI / 2, 0);
+  ctx.strokeStyle = '#2D6A4F';
+  ctx.lineWidth = 16 * s;
+  ctx.lineCap = 'round';
+  ctx.stroke();
+
+  // Heart
+  ctx.beginPath();
+  drawHeart(ctx, 512 * s, 500 * s, 220 * s);
+  ctx.fillStyle = '#2D6A4F';
+  ctx.fill();
+}
+
+function drawHeart(ctx, cx, cy, size) {
+  const s = size / 220;
+  const x = cx - 212 * s / 2;
+  const topY = cy - 100 * s;
+
+  ctx.moveTo(cx, cy + 120 * s);
+  ctx.bezierCurveTo(cx - 250 * s, cy + 10 * s, cx - 210 * s, topY - 80 * s, cx - 90 * s, topY - 80 * s);
+  ctx.bezierCurveTo(cx - 20 * s, topY - 80 * s, cx, topY - 30 * s, cx, topY);
+  ctx.bezierCurveTo(cx, topY - 30 * s, cx + 20 * s, topY - 80 * s, cx + 90 * s, topY - 80 * s);
+  ctx.bezierCurveTo(cx + 210 * s, topY - 80 * s, cx + 250 * s, cy + 10 * s, cx, cy + 120 * s);
+  ctx.closePath();
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+function download(canvas, size) {
+  const a = document.createElement('a');
+  a.download = `AppIcon-${size}x${size}.png`;
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+}
+
+const container = document.getElementById('sizes');
+
+SIZES.forEach(size => {
+  const div = document.createElement('div');
+  div.className = 'size-item';
+
+  const canvas = document.createElement('canvas');
+  const displaySize = Math.min(size, 200);
+  canvas.width = size;
+  canvas.height = size;
+  canvas.style.width = displaySize + 'px';
+  canvas.style.height = displaySize + 'px';
+
+  const ctx = canvas.getContext('2d');
+  drawIcon(ctx, size);
+
+  const btn = document.createElement('button');
+  btn.textContent = `${size}×${size}`;
+  btn.onclick = () => download(canvas, size);
+
+  div.appendChild(canvas);
+  div.appendChild(btn);
+  container.appendChild(div);
+});
+</script>
+</body>
+</html>
