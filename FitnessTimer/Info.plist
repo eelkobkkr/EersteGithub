@@ -4,5 +4,16 @@
 <dict>
 	<key>NSHealthShareUsageDescription</key>
 	<string>FitnessTimer gebruikt je hartslaggegevens van Apple Watch om je live hartslag weer te geven tijdens het sporten.</string>
+	<key>UIRequiresFullScreen</key>
+	<true/>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIColorName</key>
+		<string>SystemBackgroundColor</string>
+	</dict>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
 </dict>
 </plist>
